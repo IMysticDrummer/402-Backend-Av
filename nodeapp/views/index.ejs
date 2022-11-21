@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <% include cabecera.ejs %>
+
+    <p><%= bienvenido %> to <%= title %></p>
+    <p>El segundo actual es <%= segundoActual %></p>
+    <p>El color es <%= color %></p>
+
+    <h3>Inyección de código</h3>
+    <p><%= codigo %></p>
+
+    <h3>Condiciones</h3>
+    <% if (estado) { %>
+      <p>El segundo actual es par</p>
+    <% } else { %>
+      <p>El segundo actual es impar</p>
+    <% } %>
+
+    <h3>Bucles</h3>
+    <% usuarios.forEach(usuario => { %>
+      <p>Usuario con nombre <%= usuario.nombre %> tiene <%= usuario.edad %> años</p>
+    <% }) %>
+
+  </body>
+</html>

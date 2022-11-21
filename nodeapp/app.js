@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
+//Internacionalización en un sólo paso
+const i18n = require('./lib/i18nConfigure');
 
 var app = express();
 
@@ -14,6 +16,9 @@ app.set('view engine', 'ejs');
 app.locals.title = 'Anuncios';
 
 require('./lib/connectMongoose');
+
+// Setup de i18n
+app.use(i18n.init);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,19 +35,17 @@ app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
 /**
  * Rutas del Website
  */
-app.use('/',       require('./routes/index'));
-app.use('/users',  require('./routes/users'));
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
 app.use('/pedidos', require('./routes/pedidos'));
 
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-
+app.use(function (err, req, res, next) {
   // comprobar si es un error de validación
   if (err.array) {
     err.status = 422; // error de validación

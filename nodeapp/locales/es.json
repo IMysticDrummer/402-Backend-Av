@@ -1,6 +1,12 @@
 {
-  "El segundo actual es": "El segundo actual es",
-  "par": "par",
-  "impar": "impar"
-
+	"Current second is": "El segundo actual es",
+	"par": "par",
+	"impar": "impar",
+	"i18n example for plurals": "i18n ejemplo de plurales",
+	"Mouse": {
+		"one": "Ratón",
+		"other": "Ratones"
+	},
+	"Conditions": "Condiciones",
+	"Wellcome": "Bienvenidos"
 }

@@ -17,4 +17,5 @@ Se suele usar la librería i18n-node.
 `npm install i18n`  
 Inicializas con `i18n.configure({...})`  
 Crear los archivos de mensjes en carpeta `locales`  
-En unestro código, usaremos la función `i18n.__(...)`
+En unestro código, usaremos la función `i18n.__(...)`. La llamaremos directamente como `__('texto')` en las vistas. En el código tenemos que asociar su llamada para variables, como función asociada a la respuesta:  
+`res.locals.bienvenido = res.__('Wellcome');`.

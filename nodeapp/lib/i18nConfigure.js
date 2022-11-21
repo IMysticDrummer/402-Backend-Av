@@ -12,6 +12,7 @@ i18n.configure({
   autoReload: true, //recarga el fichero de idioma cuando cambia
   syncFiles: true, //sincroniza locale información a través de todos los ficheros, y
   //creará automaticamente tantos ficheros en 'locales' como idiomas configuremos
+  syncFiles: true,
 });
 
 // para utilizar en scripts

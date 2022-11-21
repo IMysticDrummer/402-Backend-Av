@@ -1,5 +1,13 @@
 {
-  "El segundo actual es": "Current second is",
-  "par": "even",
-  "impar": "odd"
+	"Current second is": "Current second is",
+	"par": "even",
+	"impar": "odd",
+	"i18n example for plurals": "i18n example for plurals",
+	"Mouse": {
+		"one": "Mouse",
+		"other": "Mouse"
+	},
+	"Conditions": "Conditions",
+	"Wellcome": "Wellcome"
+	
 }

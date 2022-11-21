@@ -12,17 +12,17 @@
     <% include cabecera.ejs %>
 
     <p><%= bienvenido %> to <%= title %></p>
-    <p><%=__('El segundo actual es') %><%= segundoActual %></p>
+    <p><%=__('Current second is') %> <%= segundoActual %></p>
     <p>El color es <%= color %></p>
 
     <h3>Inyección de código</h3>
     <p><%= codigo %></p>
 
-    <h3>Condiciones</h3>
+    <h3><%=__('Conditions')%></h3>
     <% if (estado) { %>
-    <p><%=__('El segundo actual es') %> <%=__('par')%></p>
+    <p><%=__('Current second is') %> <%=__('par')%></p>
     <% } else { %>
-    <p><%=__('El segundo actual es') %> <%=__('impar')%></p>
+    <p><%=__('Current second is') %> <%=__('impar')%></p>
     <% } %>
 
     <h3>Bucles</h3>
@@ -31,5 +31,11 @@
       Usuario con nombre <%= usuario.nombre %> tiene <%= usuario.edad %> años
     </p>
     <% }) %>
+
+    <h2><%= __('i18n example for plurals')%></h2>
+    <p>0 <%= __n('Mouse',0) %></p>
+    <p>1 <%= __n('Mouse',1) %></p>
+    <p>2 <%= __n('Mouse',2) %></p>
+    <p>3 <%= __n('Mouse',3) %></p>
   </body>
 </html>

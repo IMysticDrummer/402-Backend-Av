@@ -11,9 +11,9 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-//app.set('view engine', 'html'); // usa un motor de vista custom, llamado 'html'
-//app.engine('html', require('ejs').__express); // ese motor usa ejs
+//app.set('view engine', 'ejs');
+app.set('view engine', 'html'); // usa un motor de vista custom, llamado 'html'
+app.engine('html', require('ejs').__express); // ese motor usa ejs
 
 app.locals.title = 'Anuncios';
 

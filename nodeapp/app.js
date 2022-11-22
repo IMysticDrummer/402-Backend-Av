@@ -17,9 +17,6 @@ app.locals.title = 'Anuncios';
 
 require('./lib/connectMongoose');
 
-// Setup de i18n
-app.use(i18n.init);
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,11 +29,15 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
 
+// Setup de i18n. Debe ir mínimo después del cookie parser
+app.use(i18n.init);
+
 /**
  * Rutas del Website
  */
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/features', require('./routes/features'));
+app.use('/change-locale', require('./routes/change-locale'));
 app.use('/pedidos', require('./routes/pedidos'));
 
 // catch 404 and forward to error handler

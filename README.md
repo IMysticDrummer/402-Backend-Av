@@ -23,7 +23,7 @@ En unestro código, usaremos la función `i18n.__(...)`. La llamaremos directame
 **Librería de variables de entorno** dotenv.  
 `npm i dotenv`.
 Crear en el directorio un fichero `.env`.
-Allí metemos las variables de entorno con los valores que necesitemos.  
+Allí metemos las variables de entorno con los valores que necesitemos. El separador entre variables es símplemente un retorno de carro.  
 En la aplicación se utiliza con la instrucción `process.env.NUESTRA_VARIABLE`.  
 Debemos llamar a la librería antes de nuestra aplicación express (antes de llamar a app).  
 Utilizamos la instrucción `require('dotenv').config();`.  
@@ -31,3 +31,5 @@ Utilizamos la instrucción `require('dotenv').config();`.
 Si hace falta crear un fichero, tendremos que dejar instrucciones con las instrucciones de cómo crearlo.  
 Para ello hacemos una copia (.env.example) dónde pondríamos las instrucciones de cómo crearlo.
 **Asegurar** que en el `.gitignore` metemos el fichero .env para que no suba a repo.
+
+**Recurso de plantillas bootstrap** --> Start Bootstrap

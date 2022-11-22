@@ -43,3 +43,20 @@ Para conseguir un cambio de idioma:
   - Utilizar `res.redirect(req.get('Referer'))` para redirigir a la misma página.
   - En la app principal, preparar el middelware para capturar ese endpoint y que lo trate la ruta: `app.use('/change-locale', require('./routes/change-locale'))`.
   - Añadir configuración en i18nConfigure para añadir el nombre de la cookie (`cookie: 'nodeapp-locale'`).
+
+**Cambiar las extensiones de los archivos ejs a html**  
+Esto sirve para poder utilizar herramientas de desarrollo que muestran ayudas sobre html que no son viables en ejs.
+
+```javascript
+app.set('view engine', 'html'); // usa un motor de vista custom, llamado 'html'
+app.engine('html', require('ejs').__express); // ese motor usa ejs
+```
+
+Luego podemos cambiar las extensiones de los archivos
+
+## AUTENTICACIÓN
+
+Vamos a utilizar:
+
+- Sesiones por cookies para el website en el browser
+- JWT para el API

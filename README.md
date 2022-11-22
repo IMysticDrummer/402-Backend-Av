@@ -33,3 +33,13 @@ Para ello hacemos una copia (.env.example) dónde pondríamos las instrucciones 
 **Asegurar** que en el `.gitignore` metemos el fichero .env para que no suba a repo.
 
 **Recurso de plantillas bootstrap** --> Start Bootstrap
+
+Para conseguir un cambio de idioma:
+
+- Usar la función `getLocales` de i18n (se puede usar en ejs), para conseguir los idiomas configurados.
+- Utilizar una ruta con params para pasar el idioma que se desea.
+- Generar una ruta que trate esa dirección:
+  - Utilizar dentro una cookie para guardar la preferencia (`res.cookie('nodeapp-locale', locale, {objeto para las características de la cookie})`).
+  - Utilizar `res.redirect(req.get('Referer'))` para redirigir a la misma página.
+  - En la app principal, preparar el middelware para capturar ese endpoint y que lo trate la ruta: `app.use('/change-locale', require('./routes/change-locale'))`.
+  - Añadir configuración en i18nConfigure para añadir el nombre de la cookie (`cookie: 'nodeapp-locale'`).

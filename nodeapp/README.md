@@ -1,15 +1,22 @@
 # nodeapp
 
+Copy .env.example to .env
+
+```sh
+cp .env.example .env
+```
+
+and review your configuration
+
 Start the application:
 
 In production:
 
 On first deploy, load initial data into the database:
 
-```js
+```javascript
 node initDB.js
 ```
-
 
 ```sh
 npm start
@@ -28,8 +35,10 @@ npm run dev
 Return a list of agents. Example:
 
 ```json
-{"results":[
-  {"name":"Jones","age":41},
-  {"name":"Brown","age":22}
-]}
+{
+  "results": [
+    { "name": "Jones", "age": 41 },
+    { "name": "Brown", "age": 22 }
+  ]
+}
 ```

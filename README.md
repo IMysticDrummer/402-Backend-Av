@@ -60,3 +60,20 @@ Vamos a utilizar:
 
 - Sesiones por cookies para el website en el browser
 - JWT para el API
+
+**Cifrado de la contraseña**  
+Las contraseñas no deben ser guardadas en claro en una base de datos.  
+Debemos encriptarla, y nunca dejarlas en claro.  
+Debemos hacer una hash (resumen) de la contraseña de forma unidireccional, para guardarlas.
+Se utiliza una función criptográfica. Hay varias:
+
+- MD5
+- SHA1
+- SHA2  
+   ...
+  Se recomienda la librería BCRYPT que está pensada para seguridad en contraseñas.  
+   https://codahale.com/how-to-safely-store-a-password/
+  `npm i bcrypt`
+
+**Sesiones**
+`npm install express-session`

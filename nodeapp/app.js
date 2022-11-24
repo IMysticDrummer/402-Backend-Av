@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
+
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
+const sessionAuth = require('./lib/sessionAuthMiddleware');
 //Internacionalización en un sólo paso
 const i18n = require('./lib/i18nConfigure');
 const LoginController = require('./routes/loginController');
@@ -43,12 +46,24 @@ app.use(i18n.init);
 const loginController = new LoginController();
 const privadoController = new PrivadoController();
 
+app.use(
+  session({
+    name: 'nodeapp-session',
+    secret: 'ñlasdfj2308·$"·', //strong password generator, en este caso la pongo yo
+    saveUninitialized: true,
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 2, //expira a los dos días
+    },
+  })
+);
+
 app.use('/', require('./routes/index'));
 app.use('/features', require('./routes/features'));
 app.use('/change-locale', require('./routes/change-locale'));
 app.use('/pedidos', require('./routes/pedidos'));
 app.get('/login', loginController.index);
-app.get('/privado', privadoController.index);
+app.get('/privado', sessionAuth, privadoController.index);
 app.post('/login', loginController.post);
 
 // catch 404 and forward to error handler

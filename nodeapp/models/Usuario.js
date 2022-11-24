@@ -8,6 +8,16 @@ const usuarioSchema = mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
 });
+
+//método estático para hacer el hash de una password
+usuarioSchema.statics.hashPassword = function (passwordEnClaro) {
+  return bcrypt.hash(passwordEnClaro, 7);
+};
+
+//método en instacia para comparar
+usuarioSchema.methods.comparePassword = function (passwordEnClaro) {
+  return bcrypt.compare(passwordEnClaro, this.password);
+};
 // crear el modelo
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 

@@ -1,20 +1,21 @@
 {
-	"Current second is": "El segundo actual es",
-	"par": "par",
-	"impar": "impar",
-	"i18n example for plurals": "i18n ejemplo de plurales",
-	"Mouse": {
-		"one": "Ratón",
-		"other": "Ratones"
-	},
-	"Conditions": "Condiciones",
-	"Wellcome": "Bienvenidos",
-	"El segundo actual es": "El segundo actual es",
-	"El segundo actual es Par": "El segundo actual es Par",
-	"18n example for plurals": "18n example for plurals",
-	"El segundo actual es impar": "El segundo actual es impar",
-	"odd": "odd",
-	"even": "even",
-	"Login": "Login",
-	"Invalid credentials": "Invalid credentials"
+  "Current second is": "El segundo actual es",
+  "par": "par",
+  "impar": "impar",
+  "i18n example for plurals": "i18n ejemplo de plurales",
+  "Mouse": {
+    "one": "Ratón",
+    "other": "Ratones"
+  },
+  "Conditions": "Condiciones",
+  "Wellcome": "Bienvenidos",
+  "El segundo actual es": "El segundo actual es",
+  "El segundo actual es Par": "El segundo actual es Par",
+  "18n example for plurals": "18n example for plurals",
+  "El segundo actual es impar": "El segundo actual es impar",
+  "odd": "odd",
+  "even": "even",
+  "Login": "Login",
+  "Invalid credentials": "Credenciales inválidas",
+  "Privado": "Privado"
 }

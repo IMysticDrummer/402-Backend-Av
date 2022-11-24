@@ -18,13 +18,14 @@ class LoginController {
       //para velocitar la base de datos
       const usuario = await Usuario.findOne({ email });
       //Si no lo encuentro o no coincide la contraseña --> error
-      if (!usuario) {
+      if (!usuario || usuario.password != password) {
         res.locals.error = res.__('Invalid credentials');
         res.locals.email = email;
         res.render('login');
         return;
       }
       //Si existe y la contraseña coincide --> redirigir a privado
+      res.redirect('/privado');
     } catch (error) {
       next(error);
     }

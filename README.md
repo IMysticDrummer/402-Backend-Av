@@ -86,3 +86,8 @@ En la autenticación con sesiones, el backend debe enviar una identificación de
   - `npm install connect-mongo`
   - cargar la librería (`require('connect-mongo')`)
   - usarla en la middleware de gestión de sesiones.
+
+### Autenticación con JWT
+
+Librería para generar un json web token jsonwebtoken:  
+`npm install jsonwebtoken`

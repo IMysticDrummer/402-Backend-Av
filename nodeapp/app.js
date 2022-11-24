@@ -6,6 +6,8 @@ var logger = require('morgan');
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
 //Internacionalización en un sólo paso
 const i18n = require('./lib/i18nConfigure');
+const LoginController = require('./routes/loginController');
+const PrivadoController = require('./routes/privadoController');
 
 var app = express();
 
@@ -37,10 +39,17 @@ app.use(i18n.init);
 /**
  * Rutas del Website
  */
+
+const loginController = new LoginController();
+const privadoController = new PrivadoController();
+
 app.use('/', require('./routes/index'));
 app.use('/features', require('./routes/features'));
 app.use('/change-locale', require('./routes/change-locale'));
 app.use('/pedidos', require('./routes/pedidos'));
+app.get('/login', loginController.index);
+app.get('/privado', privadoController.index);
+app.post('/login', loginController.post);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

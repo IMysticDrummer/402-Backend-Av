@@ -15,5 +15,6 @@
 	"El segundo actual es impar": "El segundo actual es impar",
 	"odd": "odd",
 	"even": "even",
-	"Login": "Login"
+	"Login": "Login",
+	"Invalid credentials": "Invalid credentials"
 }

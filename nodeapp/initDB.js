@@ -48,8 +48,14 @@ async function initUsuario() {
 
   // crear agentes iniciales
   const inserted = await Usuario.insertMany([
-    { email: 'admin@example.com', password: await Usuario.hasPassword('1234') },
-    { email: 'user1@example.com', password: await Usuario.hasPassword('1234') },
+    {
+      email: 'admin@example.com',
+      password: await Usuario.hashPassword('1234'),
+    },
+    {
+      email: 'user1@example.com',
+      password: await Usuario.hashPassword('1234'),
+    },
   ]);
   console.log(`Creados ${inserted.length} usuarios.`);
 }

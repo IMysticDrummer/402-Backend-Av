@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 //crear el esquema
 const usuarioSchema = mongoose.Schema({

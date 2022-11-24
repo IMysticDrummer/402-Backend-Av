@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
 const sessionAuth = require('./lib/sessionAuthMiddleware');
@@ -39,10 +40,6 @@ app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
 // Setup de i18n. Debe ir mínimo después del cookie parser
 app.use(i18n.init);
 
-/**
- * Rutas del Website
- */
-
 const loginController = new LoginController();
 const privadoController = new PrivadoController();
 
@@ -55,8 +52,21 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 2, //expira a los dos días
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_CONNECTION_STRING,
+    }),
   })
 );
+
+// Hacemos una variable de sesión para que las vistas tengan acceso.
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
+
+/**
+ * Rutas del Website
+ */
 
 app.use('/', require('./routes/index'));
 app.use('/features', require('./routes/features'));
@@ -65,6 +75,7 @@ app.use('/pedidos', require('./routes/pedidos'));
 app.get('/login', loginController.index);
 app.get('/privado', sessionAuth, privadoController.index);
 app.post('/login', loginController.post);
+app.get('/logout', loginController.logout);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

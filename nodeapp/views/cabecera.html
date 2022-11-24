@@ -57,7 +57,7 @@
       <div class="container px-5">
         <a
           class="navbar-brand fw-bold"
-          href="#page-top"
+          href="/"
           ><%= title %></a
         >
 
@@ -91,11 +91,12 @@
             <li class="nav-item">
               <a
                 class="nav-link me-lg-3"
-                href="/download"
-                >Download</a
+                href="/privado"
+                ><%=__('Privado')%></a
               >
             </li>
           </ul>
+	  <% if (!session.usuarioLogado) { %>
           <a
             href="/login"
             class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0"
@@ -107,6 +108,19 @@
               <span class="small"><%=__('Login')%></span>
             </span>
           </a>
+	  <% } else { %>
+	  <a
+            href="/login"
+            class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0"
+            data-bs-toggle="modal"
+            data-bs-target="#feedbackModal"
+          >
+            <span class="d-flex align-items-center">
+              <i class="bi-chat-text-fill me-2"></i>
+              <span class="small"><%=__('Logout')%></span>
+            </span>
+          </a>
+	  <% } %>
         </div>
       </div>
     </nav>

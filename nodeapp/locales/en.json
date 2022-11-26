@@ -9,7 +9,7 @@
 	},
 	"Conditions": "Conditions",
 	"Wellcome": "Wellcome",
-	"El segundo actual es": "El segundo actual es",
+	"El segundo actual es": "Current second is",
 	"El segundo actual es Par": "El segundo actual es Par",
 	"18n example for plurals": "18n example for plurals",
 	"El segundo actual es impar": "El segundo actual es impar",
@@ -17,5 +17,6 @@
 	"even": "even",
 	"Login": "Login",
 	"Invalid credentials": "Invalid credentials",
-	"Privado": "Privado"
+	"Privado": "Private",
+	"Esta sección es para": "This section is for"
 }

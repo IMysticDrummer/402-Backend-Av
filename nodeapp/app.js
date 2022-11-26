@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const basicAuthMiddleware = require('./lib/basicAuthMiddleware');
 const sessionAuth = require('./lib/sessionAuthMiddleware');
@@ -11,6 +12,7 @@ const sessionAuth = require('./lib/sessionAuthMiddleware');
 const i18n = require('./lib/i18nConfigure');
 const LoginController = require('./routes/loginController');
 const PrivadoController = require('./routes/privadoController');
+const jwtAutMiddleware = require('./lib/jwtAuthMiddleware');
 
 var app = express();
 
@@ -31,19 +33,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/pdf', express.static('d:/PDFS'));
 
+const loginController = new LoginController();
 /**
  * Rutas del API
  */
-app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
+//app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
+app.use('/api/agentes', jwtAutMiddleware, require('./routes/api/agentes'));
+app.use('/api/login', loginController.postJWT);
 
 // Setup de i18n. Debe ir mínimo después del cookie parser
 app.use(i18n.init);
 
-/**
- * Rutas del Website
- */
-
-const loginController = new LoginController();
 const privadoController = new PrivadoController();
 
 app.use(
@@ -55,8 +55,21 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 2, //expira a los dos días
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_CONNECTION_STRING,
+    }),
   })
 );
+
+// Hacemos una variable de sesión para que las vistas tengan acceso.
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
+
+/**
+ * Rutas del Website
+ */
 
 app.use('/', require('./routes/index'));
 app.use('/features', require('./routes/features'));
@@ -65,6 +78,7 @@ app.use('/pedidos', require('./routes/pedidos'));
 app.get('/login', loginController.index);
 app.get('/privado', sessionAuth, privadoController.index);
 app.post('/login', loginController.post);
+app.get('/logout', loginController.logout);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

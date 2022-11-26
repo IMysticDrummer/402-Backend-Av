@@ -76,4 +76,18 @@ Se utiliza una función criptográfica. Hay varias:
   `npm i bcrypt`
 
 **Sesiones**
-`npm install express-session`
+`npm install express-session`  
+En la autenticación con sesiones, el backend debe enviar una identificación de sesión, pero los datos de la sesión quedan guardados en servidor.
+
+- **Almacenes de sesiones para express**
+  - connect-mongo
+  - **REDIS**
+  - Permiten guardar sesiones en base de datos para tenerlas disponibles.
+  - `npm install connect-mongo`
+  - cargar la librería (`require('connect-mongo')`)
+  - usarla en la middleware de gestión de sesiones.
+
+### Autenticación con JWT
+
+Librería para generar un json web token jsonwebtoken:  
+`npm install jsonwebtoken`

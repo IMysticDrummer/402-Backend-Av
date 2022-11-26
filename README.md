@@ -25,7 +25,7 @@ En unestro código, usaremos la función `i18n.__(...)`. La llamaremos directame
 Crear en el directorio un fichero `.env`.
 Allí metemos las variables de entorno con los valores que necesitemos. El separador entre variables es símplemente un retorno de carro.  
 En la aplicación se utiliza con la instrucción `process.env.NUESTRA_VARIABLE`.  
-Debemos llamar a la librería antes de nuestra aplicación express (antes de llamar a app).  
+Debemos llamar a la librería antes de nuestra aplicación express (antes de llamar a app). Normalmente será en `/bin/www` o en `/bin/cluster`.  
 Utilizamos la instrucción `require('dotenv').config();`.  
 **ATENCIÓN...** ESTE FICHERO NO HAY QUE METERLO EN EL REPO DE GIT, YA QUE PUEDE CONTENER PASSWORDS U OTRO TIPO DE INFORMACIONES QUE NO DEBEN SER MOSTRADAS.
 Si hace falta crear un fichero, tendremos que dejar instrucciones con las instrucciones de cómo crearlo.  

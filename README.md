@@ -295,7 +295,27 @@ Nodemailer tiene un servicio de cuenta de test para desarroladores, que simula e
 
 1. Crear una librería para poder reutilizarla
 
-- Generar una función que exporte un `transport`
-- Utilizar esa función en alguna parte que dónde tengamos acceso a los datos a enviar. Por ejemplo, en el modelo, dejando todo preparardo para enviar el correo.
-- LLamar a esa función desde donde queramos enviar el correo, pasándole al asunto y el cuerpo.
-  - En este punto, quitar el await para que no quede esperando en lo que se envía el email.
+   - Generar una función que exporte un `transport`
+
+2. Utilizar esa función en alguna parte que dónde tengamos acceso a los datos a enviar. Por ejemplo, en el modelo, dejando todo preparardo para enviar el correo.
+3. LLamar a esa función desde donde queramos enviar el correo, pasándole al asunto y el cuerpo.
+   - En este punto, quitar el await para que no quede esperando en lo que se envía el email.
+
+### Envío de e-mail con tareas en background
+
+El proceso es sencillo. El cliente hace la petición. La app pide los datos a la BD. Indica a un servicio de cola de tareas, los mails que tiene que enviar. La app responde al cliente.  
+La cola de tareas, envía a un worker que tienen suscrito, para que vaya enviando los emails.
+
+### RabbitMQ
+
+RabbitMQ es un servicio de mensagería y comunicación, pero tiene cola de tareas.  
+Se puede ver ejemplos en https://rabbitmq.com/getstarted.html  
+Para desarrolar se puede usar cloudamqp:
+
+- Registrarse o entrar con la cuenta
+- Crear una nueva instancia, poniendola nombre
+  - nombre --> siguiente
+  - elegir servicio cerca de dónde estamos --> siguiente -->
+  - ejegir el único servicio gratuito -->
+- Coger la url de los amqp details
+- Esa url es que usaremos en nuestro .env de entorno de productor - consumidor

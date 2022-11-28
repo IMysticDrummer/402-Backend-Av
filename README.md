@@ -283,3 +283,19 @@ Nuesto objetivo es devolver un token con el id del usuario.
 **OTROS RECURSOS SOBRE SEGURIDAD**
 Ver la página de OWASP Fundation (Open Web Application Security Project).
 https://owasp.org/www-project-node.js-goat/
+
+## Enviando emails
+
+Es muy fácil, utilizando librerías.  
+Como ejemplo, tenemos `nodemailer`.  
+Es muy recomendable, para envío masivo de mails, el utilizar plataformas de envío de mails, para evitar que caigan en spam.
+Nodemailer tiene un servicio de cuenta de test para desarroladores, que simula el envío del mail, sin enviarlo realmente, pero que te deja observar el resultado.
+
+**Posible proceso**
+
+1. Crear una librería para poder reutilizarla
+
+- Generar una función que exporte un `transport`
+- Utilizar esa función en alguna parte que dónde tengamos acceso a los datos a enviar. Por ejemplo, en el modelo, dejando todo preparardo para enviar el correo.
+- LLamar a esa función desde donde queramos enviar el correo, pasándole al asunto y el cuerpo.
+  - En este punto, quitar el await para que no quede esperando en lo que se envía el email.

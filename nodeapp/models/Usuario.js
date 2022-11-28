@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const emailTrasportConfigure = require('../lib/emailTransportConfigure');
+const nodemailer = require('nodemailer');
 
 //crear el esquema
 const usuarioSchema = mongoose.Schema({
@@ -19,6 +21,29 @@ usuarioSchema.statics.hashPassword = function (passwordEnClaro) {
 usuarioSchema.methods.comparePassword = function (passwordEnClaro) {
   return bcrypt.compare(passwordEnClaro, this.password);
 };
+
+usuarioSchema.methods.enviarEmail = async function (asunto, cuerpo) {
+  // recuperar el transport
+  const transport = await emailTrasportConfigure();
+
+  // enviar el email
+  const result = await transport.sendMail({
+    from: process.env.EMAIL_SERVICE_FROM,
+    to: this.email,
+    subject: asunto,
+    html: cuerpo,
+  });
+
+  console.log(`Mensaje enviado: ${result.messageId}`);
+
+  // previsualización del mansaje enviado
+  console.log(
+    `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`
+  );
+
+  return result;
+};
+
 // crear el modelo
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 

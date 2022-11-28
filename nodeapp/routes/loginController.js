@@ -29,9 +29,13 @@ class LoginController {
         return;
       }
 
-      //Si existe y la contraseña coincide --> redirigir a privado
+      //Si existe y la contraseña coincide
       //Apunto en la sesión que es un usuario logado
       req.session.usuarioLoggado = usuario._id;
+
+      usuario.enviarEmail('Bienvenido', 'Bienvenido a nodeapp');
+
+      // --> redirigir a privado
       res.redirect('/privado');
     } catch (error) {
       next(error);

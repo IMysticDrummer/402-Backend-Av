@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {query, validationResult } = require('express-validator');
+const { query, validationResult } = require('express-validator');
 const Agente = require('../../models/Agente');
 
 // GET /api/agentes
 // Devuelve una lista de agentes
 router.get('/', async (req, res, next) => {
   try {
-
+    //Simulamos que usamos el _id del usuario logado
+    const userId = req.apiUserId;
+    console.log({ userId });
     // filtros
     const name = req.query.name;
     const age = req.query.age;
@@ -23,7 +25,7 @@ router.get('/', async (req, res, next) => {
     // http://localhost:3000/api/agentes/?sort=age%20-name
 
     // creo el filtro vacio
-    const filtro = {}
+    const filtro = {};
 
     if (name) {
       filtro.name = name;
@@ -36,35 +38,37 @@ router.get('/', async (req, res, next) => {
     const agentes = await Agente.lista(filtro, skip, limit, fields, sort);
 
     res.json({ results: agentes });
-
   } catch (err) {
     next(err);
   }
 });
 
-router.get('/en_query_string', [ // validaciones
-  query('orderby').isAlphanumeric().withMessage('must be alphanumeric'),
-  query('solo').isNumeric().withMessage('must be numeric'),
-  // query('color').custom(color => { aqui validaría el color })
-], (req, res, next)=> {
-  validationResult(req).throw();
-  console.log(req.query);
-  const orderBy = req.query.orderby;
-  const numero = req.query.solo;
-  res.json({ result: true });
-});
+router.get(
+  '/en_query_string',
+  [
+    // validaciones
+    query('orderby').isAlphanumeric().withMessage('must be alphanumeric'),
+    query('solo').isNumeric().withMessage('must be numeric'),
+    // query('color').custom(color => { aqui validaría el color })
+  ],
+  (req, res, next) => {
+    validationResult(req).throw();
+    console.log(req.query);
+    const orderBy = req.query.orderby;
+    const numero = req.query.solo;
+    res.json({ result: true });
+  }
+);
 
 // GET /api/agentes/(_id)
 // Devuelve un agente
 router.get('/:id', async (req, res, next) => {
   try {
-
     const _id = req.params.id;
 
-    const agente = await Agente.lista({ _id: _id});
+    const agente = await Agente.lista({ _id: _id });
 
     res.json({ result: agente });
-
   } catch (error) {
     next(error);
   }
@@ -74,16 +78,18 @@ router.get('/:id', async (req, res, next) => {
 // Actualizar un agente
 router.put('/:id', async (req, res, next) => {
   try {
-
     const _id = req.params.id;
     const data = req.body;
 
-    const agenteActualizado = await Agente.findOneAndUpdate({ _id: _id }, data, {
-      new: true // esto hace que nos devuelva el documento actualizado
-    });
+    const agenteActualizado = await Agente.findOneAndUpdate(
+      { _id: _id },
+      data,
+      {
+        new: true, // esto hace que nos devuelva el documento actualizado
+      }
+    );
 
     res.json({ result: agenteActualizado });
-
   } catch (error) {
     next(error);
   }
@@ -104,7 +110,6 @@ router.post('/', async (req, res, next) => {
     const agenteGuardado = await agente.save();
 
     res.json({ result: agenteGuardado });
-
   } catch (error) {
     next(error);
   }
@@ -119,7 +124,6 @@ router.delete('/:id', async (req, res, next) => {
     await Agente.deleteOne({ _id: _id });
 
     res.json();
-
   } catch (error) {
     next(error);
   }

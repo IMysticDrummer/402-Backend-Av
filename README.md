@@ -280,7 +280,6 @@ Nuesto objetivo es devolver un token con el id del usuario.
 
    4. Si es válido, continuar (ver arriba)
 
-Vamos a utilizar:
-
-- Sesiones por cookies para el website en el browser
-- JWT para el API
+**OTROS RECURSOS SOBRE SEGURIDAD**
+Ver la página de OWASP Fundation (Open Web Application Security Project).
+https://owasp.org/www-project-node.js-goat/

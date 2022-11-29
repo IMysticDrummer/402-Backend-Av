@@ -319,3 +319,30 @@ Para desarrolar se puede usar cloudamqp:
   - ejegir el único servicio gratuito -->
 - Coger la url de los amqp details
 - Esa url es que usaremos en nuestro .env de entorno de productor - consumidor
+
+**Otras posibilidades**
+Mongodbqueue. Es una forma de hacer lo mismo que rabbitmq pero con mongo.  
+Se puede busar el repo y ver el uso.
+
+## Websockets
+
+Son servicios que permiten al servidor iniciar la comunicación interactiva a los clientes (un ejemplo es cuando enviamos un mensaje a través de facebook, y facebook informa al usuario concernido que tiene un mensaje).
+
+- Es un protocolo estándar RFC 6455.
+- Está diseñada para ser implementada en navegadores y servidores web, pero puede utilizarse por cualquier aplicación cliente/servidor.
+- Usa los puertos habituales HTTP (80, 443).
+- Atraviesa firewalls y proxies.
+  Principales librerías de websocket:
+- Socket.io (la más utilizada)
+- Websocket-node
+- ws
+
+**Cómo implementar websockets**
+
+1. Instalar express y websocket.io
+2.
+
+var app=require(express')();
+var server =require('http').Server(app);
+
+app.get('/', (req, res)=>sendFile())

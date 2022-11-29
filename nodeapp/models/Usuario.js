@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const emailTrasportConfigure = require('../lib/emailTransportConfigure');
 const nodemailer = require('nodemailer');
+const { Requester } = require('cote');
+
+const requester = new Requester({ name: 'nodeapp' });
 
 //crear el esquema
 const usuarioSchema = mongoose.Schema({
@@ -23,25 +26,35 @@ usuarioSchema.methods.comparePassword = function (passwordEnClaro) {
 };
 
 usuarioSchema.methods.enviarEmail = async function (asunto, cuerpo) {
-  // recuperar el transport
-  const transport = await emailTrasportConfigure();
-
-  // enviar el email
-  const result = await transport.sendMail({
+  const evento = {
+    type: 'enviar-email',
     from: process.env.EMAIL_SERVICE_FROM,
     to: this.email,
     subject: asunto,
     html: cuerpo,
-  });
+  };
 
-  console.log(`Mensaje enviado: ${result.messageId}`);
+  return new Promise((resolve) => requester.send(evento, resolve));
 
-  // previsualización del mansaje enviado
-  console.log(
-    `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`
-  );
+  // // recuperar el transport
+  // const transport = await emailTrasportConfigure();
 
-  return result;
+  // // enviar el email
+  // const result = await transport.sendMail({
+  //   from: process.env.EMAIL_SERVICE_FROM,
+  //   to: this.email,
+  //   subject: asunto,
+  //   html: cuerpo,
+  // });
+
+  // console.log(`Mensaje enviado: ${result.messageId}`);
+
+  // // previsualización del mansaje enviado
+  // console.log(
+  //   `URL de previsualización: ${nodemailer.getTestMessageUrl(result)}`
+  // );
+
+  // return result;
 };
 
 // crear el modelo

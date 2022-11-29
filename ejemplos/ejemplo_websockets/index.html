@@ -55,12 +55,32 @@
       /><button>Send</button>
     </form>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+    >
+      //Esta librería busca en el backend, en el mismo puerto que está utilizando la petición, si hay un socket abierto, y comunica con él
+    </script>
     <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
     <script>
-      $(function () {});
+      $(function () {
+        // establecer conexión con el servidor
+        const socket = io();
+
+        $('form').submit(() => {
+          const texto = $('#m').val();
+          socket.emit('nuevo-mensaje', texto);
+          $('#m').val()=""; //limpio el input
+          return false;
+        });
+
+        //recibir mensajes desde el servidor
+        socket.on('mensaje-desde-el-servidor', texto =>{
+          const li=$('<li>').text(texto)
+          $('#messages').append(li)
+        })
+      });
     </script>
   </body>
 </html>

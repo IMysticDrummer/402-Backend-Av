@@ -51,13 +51,11 @@
     <form action="">
       <input
         id="m"
-        autocomplete="off"
-      /><button>Send</button>
+        autocomplete="off" /><button>Send</button>
     </form>
 
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-    >
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js">
       //Esta librería busca en el backend, en el mismo puerto que está utilizando la petición, si hay un socket abierto, y comunica con él
     </script>
     <!-- <script src="/socket.io/socket.io.js"></script> -->
@@ -71,15 +69,22 @@
         $('form').submit(() => {
           const texto = $('#m').val();
           socket.emit('nuevo-mensaje', texto);
-          $('#m').val()=""; //limpio el input
+          $('#m').val(''); //limpio el input
           return false;
         });
 
-        //recibir mensajes desde el servidor
-        socket.on('mensaje-desde-el-servidor', texto =>{
-          const li=$('<li>').text(texto)
-          $('#messages').append(li)
-        })
+        // recibir mensajes desde el servidor
+        socket.on('mensaje-desde-el-servidor', (texto) => {
+          // añadir el texto recibido a la lista
+          const li = $('<li>').text(texto);
+          console.log('El servidor ha enviado: ', texto);
+          $('#messages').append(li);
+        });
+
+        socket.on('noticia', (texto) => {
+          const li = $('<li>').text(texto);
+          $('#messages').append(li);
+        });
       });
     </script>
   </body>

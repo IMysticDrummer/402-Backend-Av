@@ -342,7 +342,19 @@ Son servicios que permiten al servidor iniciar la comunicación interactiva a lo
 1. Instalar express y websocket.io
 2.
 
-var app=require(express')();
-var server =require('http').Server(app);
+## Microservicios
 
-app.get('/', (req, res)=>sendFile())
+**Cómo crear microservicios**
+
+1. Iniciar npm
+2. Posibilidad de incluir una librería para ayudare en microservicios:
+   - **Cote**: Librería para node.js (sólo usa javascript).
+     - Ideal para proyectos pequeños - llegando a medianos.
+     - Cero configuración
+     - Descentralizada
+     - Autodescubrimiento
+     - Tolerante al fallo
+     - Escalable horizontalmente (más servidores con balanceo de carga)
+     - Performante: Miles de mensajes por segundo
+     - API humanizada
+3. Generar los programas de microservicios

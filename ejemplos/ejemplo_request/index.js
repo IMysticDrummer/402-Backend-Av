@@ -3,7 +3,7 @@
 const axios = require('axios');
 
 const token =
-  's%3AFIE8F5eVF7r3QYVxlq8S-xsQ1yWw-Av4.Rddw788lXU0lwMpmss%2B93S%2FdHSpjwIdDKFDlqH3sNps';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdmZDkwNTAzNjg1MWUyYzQ2MGNiMDciLCJpYXQiOjE2Njk5Mjk2MDgsImV4cCI6MTY3MDEwMjQwOH0.3kJsnHPuJOQ-T_xKqgnnFDP5oVeTwiRdpjbh91o9SI8';
 
 axios
   .get(`http://localhost:3000/api/agentes?token=${token}`)

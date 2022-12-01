@@ -66,17 +66,17 @@ Consta de dos partes:
 HTTP no tiene estado (stateless). Sin embargo hace falta en ocasiones tener guardado el estado.  
 **Sesión**: forma en la que guardamos el estado del usuario.
 
-Usuario ---------------------- Proceso --------------------------- Server
+Usuario ---------------------- Proceso --------------------------- Server  
 Sig In -----------> navegador envía las credenciales ---------> Crea y almacena la sesión  
 Guarda cookie <---- Cookie con ID de sesión <------------------  
-------------------> Petición con la cookie -------------------> Verifica la sesión
+------------------> Petición con la cookie -------------------> Verifica la sesión  
 <------------------ Resonde con datos asegurado <--------------
 
 La autenticación por sesión se basa en _cookies_.  
 Los browsers guardan estos bloques de información y los envían automáticamente a los servidores.
 
 Cliente ------------------------------------- Servidor ------------------------------- Almacén de sesiones  
-_Guarda este producto en el carrito_ -------> Crea una sesión y guarda datos ---------->
+_Guarda este producto en el carrito_ -------> Crea una sesión y guarda datos ---------->  
 Recibe la cookie con el id de sesión <------- Envía id de sesión  
 Hace otra petición, adjuntando cookie ------> Comprueba en el almacén a quién pertenece la sesión -->  
 Recibe una cookie con los datos y el id <---- Recupera los datos de sesión desde el almacén <--------
@@ -184,10 +184,10 @@ Siempre el la misma, no cambia ni hay que renovarla (salvo que nosotros lo solic
 
 ### Autenticación con JWT
 
-Usuario ---------------------- Proceso --------------------------- Server
+Usuario ---------------------- Proceso --------------------------- Server  
 Sig In -----------> navegador envía las credenciales ---------> Valida en BD. Crea un token (JWT), con id-user  
 Guarda token <----- Evía token sólo para esta sesión <------------------  
-------------------> Petición con bearer token -------------------> Verifica token
+------------------> Petición con bearer token -------------------> Verifica token  
 <------------------ Resonde con datos asegurado <--------------
 
 JWT es un formato estándar abierto. Dentro guarda datos en formato JSON.  
@@ -208,7 +208,7 @@ Un JWT está formado por:
 - Es el usuario quien nos envía su información en todo momento.
 - Es seguro, porque podemos validar que el token no ha sido alterado desde que nosotros lo enviamos.
 
-Cliente ----------------------------------------------- Servidor
+Cliente ----------------------------------------------- Servidor  
 POST /login/ ----------------------------------------->  
 <------------------------------------------------------ {token: <JWT>}  
 GET /products/in/cart Authorization: <JWT> ----------->
@@ -358,3 +358,56 @@ Son servicios que permiten al servidor iniciar la comunicación interactiva a lo
      - Performante: Miles de mensajes por segundo
      - API humanizada
 3. Generar los programas de microservicios
+
+## PM2
+
+Herramienta que nos ayuda a arrancar múltiples servicios. Definimos una configuración de servicios y el los arranca y mantiene para ayudarnos. También se utiliza para poner en producción.  
+Es un process manager.  
+Ejemplos:
+
+- Arrancaríamos nuestra aplicación (`npm run dev`).
+- En nuestro ejemplo nodeapp, al hacer login, el email no se enviaría, al no tener el microservicio arrancado, pero tampoco tenemos un mensaje de error. Esto se complicaría cuando tenemos múltiples microservicios.
+- Con PM2 nos permite decidir qué servicios arrancamos, según el entorno (producción, desarrollo, test...) y con las configuraciones decididas para dicho entorno.
+
+Instalar: `npm i pm2@latest`  
+Ejecutar: `pm2 start aplicación`
+
+### Crear ficheros de arranque para PM2
+
+`npx pm2 ecosystem` --> Genera un archivo ecosystem.config.js.  
+Es un módulo exportable, que debemos configurar con nuestras opciones.
+
+- _script_ definimos las aplicaciones a arrancar con el array.
+- _watch_ define qué archivos disparan una recarga del servicio cuando cambien.
+- _env_production_ o _env_developement_ sirven para configurar los entornos de producción o desarrollo. Por ejemplo podemos indicar variables de entorno a utilizar.
+- _log_date_format_ para indicar el formato de fecha y hora que queremos que se muestre en los logs.
+- _deploy_: Apartado que permite conectar por ssh al servidor que configuremos y hace el despliegue a dicho servidor cuando queramos. También PM2 permite hacer un roll-back para poder realizar una "vuelta atrás" segura.  
+   También permite poner comandos y batch que haga cosas cuando haga el despliegue.
+
+```javascript
+apps: [
+    {
+      name: 'myapp',
+      script: 'app.js',
+      watch: './app.js',
+      env_production: {
+        NODE_ENV: 'production',
+      },
+      env_development: {
+        NODE_ENV: 'developement',
+      },
+      log_date_format: 'YYYY-MM-DD HH:mm'
+    },
+    {
+      script: 'conversionService.js',
+      watch: ['./conversionService.js'],
+    },
+  ],
+```
+
+Ejecutar: `npx pm2 start ecosystem.config.js --env developement` --> arranca la aplicación con la configuración de desarrollo.
+
+CI/CD --> herramientas de despliegue continuo y/o integración continua. Ejemplo circleci
+Permiten hacer la integración en producción. Puedes vincularlo a tu repositorio git, y cada vez que hagas un desplegado a tu rama main, o un merge-request o pull-request, automáticamente hace todo el despliegue continuo (hace los test, ejecuta la carga y lo despliega al host).
+
+d

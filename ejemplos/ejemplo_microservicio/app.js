@@ -16,7 +16,7 @@ const evento = {
 
 //vamos a hacer que lo pida cada cierto tiempo
 setInterval(() => {
-  console.log(Date.now(), 'pido un cambio de moneda');
+  console.log(Date.now(), 'pido un cambio de moneda al microservicio');
   requester.send(evento, (resultado) => {
     console.log(Date.now(), ' app obtiene resultado: ', resultado);
   });

@@ -410,4 +410,11 @@ Ejecutar: `npx pm2 start ecosystem.config.js --env developement` --> arranca la 
 CI/CD --> herramientas de despliegue continuo y/o integración continua. Ejemplo circleci
 Permiten hacer la integración en producción. Puedes vincularlo a tu repositorio git, y cada vez que hagas un desplegado a tu rama main, o un merge-request o pull-request, automáticamente hace todo el despliegue continuo (hace los test, ejecuta la carga y lo despliega al host).
 
-d
+## Subir ficheros
+
+Librería `multer`
+
+## Hacer peticiones a otro API
+
+Podemos utilizar fetch en node.js en sus últimas versiones.  
+Sin embargo vamos a utilizar axios para pedir peticiones.

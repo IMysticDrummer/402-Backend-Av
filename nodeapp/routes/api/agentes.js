@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { query, validationResult } = require('express-validator');
 const Agente = require('../../models/Agente');
+const upload = require('../../lib/uploadConfig');
 
 // GET /api/agentes
 // Devuelve una lista de agentes
@@ -97,9 +98,11 @@ router.put('/:id', async (req, res, next) => {
 
 // POST /api/agentes (body)
 // Crea un agente
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('foto'), async (req, res, next) => {
   try {
     const agenteData = req.body;
+
+    agenteData.avatar = req.file.filename;
 
     // instanciamos objeto en memoria
     const agente = new Agente(agenteData);

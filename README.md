@@ -418,3 +418,61 @@ Librería `multer`
 
 Podemos utilizar fetch en node.js en sus últimas versiones.  
 Sin embargo vamos a utilizar axios para pedir peticiones.
+
+## Documentación de API's
+
+Usar OpenAPI y Swagger. Es necesario para un buena documentación.
+
+Entrar en http://editor.swagger.io  
+Se puede ir cambiando el ejemplo y definiendo los parámetros que utiliza nuestro API y sus operaciones.
+
+Para hacer que nuestra aplicación tenga su propia documentación swagger:
+
+- Instalar swagger-jsdoc
+- Instalar swagger-ui-express
+- Copiar la definición terminada en la página editor de swagger
+- Crear un archivo swagger.yaml y pegar la definición.
+- Generar un middleware (seaggerMiddleware), que contendrán las definiciones de opciones.
+
+  - definir las opciones
+  - preparar las exportaciones
+
+    ```javascript
+    const swaggerJSDoc = require('swagger-jsdoc');
+    const swaggerUI = require('swagger-ui-express');
+
+    const options = {
+      swaggerDefinition: {
+        title: 'NodeApp API',
+        version: '0.1',
+        description: 'API de agentes',
+      },
+      apis: ['swagger.yaml'],
+    };
+
+    const especificacion = swaggerJSDoc(options);
+
+    module.exports = [swaggerUI.serve, swaggerUI.setup(especificacion)];
+    ```
+
+  - Importar en la app y usar con un router:
+    ```javascript
+    const swaggerMiddleware = require('./lib/swaggerMiddleware.js');
+    app.use('/api-docs', swaggerMiddleware);
+    ```
+
+Otra posibilidad es utilizar comentarios antes de las rutas.
+En este caso hay que cambiar en el parámetro `apis:` de dónde coge la especificación. Por ejemplo, para coger todas las especificaciones de dentro de routes: `apis: ['./routes/**/*.js']`.  
+En la propia ruta comentaríamos como:
+
+```javascript
+/**
+ * @openapi
+ * /api/agentes:
+ *  get:
+ *    description: Devuelve una lista de agentes
+ *    responses:
+ *      200:
+ *        description: Devuelve JSON
+ */
+```

@@ -14,6 +14,8 @@ const LoginController = require('./routes/loginController');
 const PrivadoController = require('./routes/privadoController');
 const jwtAutMiddleware = require('./lib/jwtAuthMiddleware');
 
+const swaggerMiddleware = require('./lib/swaggerMiddleware.js');
+
 var app = express();
 
 // view engine setup
@@ -34,10 +36,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/pdf', express.static('d:/PDFS'));
 
 const loginController = new LoginController();
+
 /**
  * Rutas del API
  */
 //app.use('/api/agentes', basicAuthMiddleware, require('./routes/api/agentes'));
+//Llamada al generador de documentación
+app.use('/api-docs', swaggerMiddleware);
 app.use('/api/agentes', jwtAutMiddleware, require('./routes/api/agentes'));
 app.use('/api/login', loginController.postJWT);
 

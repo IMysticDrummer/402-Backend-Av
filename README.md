@@ -151,7 +151,12 @@ En la autenticación con sesiones, el backend debe enviar una identificación de
        maxAge: tiempo - en - milisegundos;
      }
      ```
-   - _store_: Método de guardado de las sesiones. Por ejemplo se podría utilizar un connect-mongo (ver maś abajo)
+   - _store_: Método de guardado de las sesiones. Por ejemplo se podría utilizar un connect-mongo (ver maś abajo)  
+    ```javascript
+    store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_CONNECTION_STRING
+    })
+    ```
 6. Recoger el id de usuario cuando haga login y guardarlo en la sesión. Esto se puede hacer en nuesto _controller_ del login
 7. Generar un middleware para comprobar si el usuario tiene sesión para poder entrar en las páginas seguras o por lo contrario le enviamos al login. Ponerlo como middleware en las páginas seguras.
 8. Realizar un logout, que limpie la sesión. Se puede utilizar `req.session.regenerate`, que borra la sesión actual del usuario y genera una vacía.
